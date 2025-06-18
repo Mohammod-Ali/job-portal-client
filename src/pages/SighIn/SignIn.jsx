@@ -1,14 +1,27 @@
 import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
 import signinLottieData from "../../assets/lottie/signin.json";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext/AuthContext";
 
 const SignIn = () => {
+
+const {signInUser} = useContext(AuthContext)
+
   const handleSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+    // console.log(email, password);
+
+    signInUser(email, password)
+    .then(result => {
+        console.log(result)
+    })
+    .catch(error => {
+        console.log(error.message)
+    })
   };
 
   return (
