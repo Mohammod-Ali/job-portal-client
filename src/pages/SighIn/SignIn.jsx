@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import signinLottieData from "../../assets/lottie/signin.json";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
+import SocialLogin from "../shared/SocialLogin";
 
 const SignIn = () => {
 
@@ -52,6 +53,7 @@ const {signInUser} = useContext(AuthContext)
                 <a className="link link-hover">Forgot password?</a>
               </div>
               <button className="btn btn-neutral mt-4">Sign In</button>
+              <SocialLogin></SocialLogin>
             </fieldset>
             <p>You have no account, Please <Link className="text-blue-500" to='/register'>Register</Link></p>
           </form>

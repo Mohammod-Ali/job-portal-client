@@ -3,6 +3,7 @@ import registerLottieData from "../../assets/lottie/register.json";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import { Link } from "react-router-dom";
+import SocialLogin from "../shared/SocialLogin";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
@@ -53,10 +54,16 @@ const Register = () => {
                 <a className="link link-hover">Forgot password?</a>
               </div>
               <button className="btn btn-neutral mt-4">Register</button>
+              
+            <SocialLogin></SocialLogin>
             </fieldset>
-            <p>Already you have account, Please <Link className="text-blue-500" to='/signin'>Sign In</Link></p>
+            <p>
+              Already you have account, Please{" "}
+              <Link className="text-blue-500" to="/signin">
+                Sign In
+              </Link>
+            </p>
           </form>
-          
         </div>
       </div>
     </div>
