@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 const JobApply = () => {
   const { id } = useParams();
   const { user } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const submitJobApplication = (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ const JobApply = () => {
       resume,
     };
 
-    fetch("http://localhost:5000/job-applications", {
+    fetch("https://job-portal-server-ten-alpha.vercel.app/job-applications", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -40,7 +40,7 @@ const JobApply = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate('/myApplications')
+          navigate("/myApplications");
         }
       });
   };

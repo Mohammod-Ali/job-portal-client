@@ -3,44 +3,41 @@ import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 const AddJob = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
-const {user} = useAuth()
-const navigate = useNavigate()
+  const handleAddJob = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const initialDAta = Object.fromEntries(formData.entries());
+    console.log(initialDAta);
+    const { min, max, currency, ...newJob } = initialDAta;
+    newJob.salaryRange = { min, max, currency };
+    newJob.requirements = newJob.requirements.split("\n");
+    newJob.responsibilities = newJob.responsibilities.split("\n");
+    console.log(newJob);
 
-   const handleAddJob = e => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const initialDAta = Object.fromEntries(formData.entries())
-    console.log(initialDAta)
-    const {min, max, currency, ...newJob} = initialDAta
-    newJob.salaryRange = { min, max, currency }
-    newJob.requirements = newJob.requirements.split('\n')
-    newJob.responsibilities = newJob.responsibilities.split('\n')
-    console.log(newJob)
-
-    fetch('http://localhost:5000/jobs', {
-      method: 'POST',
+    fetch("https://job-portal-server-ten-alpha.vercel.app/jobs", {
+      method: "POST",
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json",
       },
-      body: JSON.stringify(newJob)
+      body: JSON.stringify(newJob),
     })
-    .then(res => res.json())
-    .then(data => {
-            if (data.insertedId) {
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Job has been added",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              navigate('/myPostedJobs')
-            }
-          })
-
-   }
-
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Job has been added",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/myPostedJobs");
+        }
+      });
+  };
 
   return (
     <div>
@@ -77,8 +74,12 @@ const navigate = useNavigate()
           <label className="label">
             <span className="label-text">Job Type</span>
           </label>
-          <select  name="job_type" defaultValue="Pick a Job" className="select select-ghost">
-            <option >Pick a Job Type</option>
+          <select
+            name="job_type"
+            defaultValue="Pick a Job"
+            className="select select-ghost"
+          >
+            <option>Pick a Job Type</option>
             <option>Intern</option>
             <option>Part-time</option>
             <option>Full-time</option>
@@ -89,8 +90,12 @@ const navigate = useNavigate()
           <label className="label">
             <span className="label-text">Job Field</span>
           </label>
-          <select name="category" defaultValue="Pick a font" className="select select-ghost">
-            <option >Pick a Job Field</option>
+          <select
+            name="category"
+            defaultValue="Pick a font"
+            className="select select-ghost"
+          >
+            <option>Pick a Job Field</option>
             <option>Engineering</option>
             <option>Marketing</option>
             <option>Finance</option>
@@ -112,7 +117,6 @@ const navigate = useNavigate()
             />
           </div>
           <div className=" flex flex-col">
-            
             <input
               type="text"
               name="max"
@@ -122,8 +126,11 @@ const navigate = useNavigate()
             />
           </div>
           <div className=" flex flex-col">
-           
-            <select name="currency" defaultValue="Pick a font" className="select select-ghost">
+            <select
+              name="currency"
+              defaultValue="Pick a font"
+              className="select select-ghost"
+            >
               <option>Pick a Currency</option>
               <option>BDT</option>
               <option>USD</option>
@@ -131,15 +138,20 @@ const navigate = useNavigate()
             </select>
           </div>
         </div>
-         {/* job Description */}
+        {/* job Description */}
         <div className=" flex flex-col">
           <label className="label">
             <span className="label-text">Job Description</span>
           </label>
-          <textarea name="description" className="textarea textarea-bordered w-full" placeholder="Job Description" required></textarea>
+          <textarea
+            name="description"
+            className="textarea textarea-bordered w-full"
+            placeholder="Job Description"
+            required
+          ></textarea>
         </div>
         {/* company name */}
-          <div className=" flex flex-col">
+        <div className=" flex flex-col">
           <label className="label">
             <span className="label-text">Company Name</span>
           </label>
@@ -152,22 +164,32 @@ const navigate = useNavigate()
           />
         </div>
         {/* requirements */}
-           <div className=" flex flex-col">
+        <div className=" flex flex-col">
           <label className="label">
             <span className="label-text">Job Requirements</span>
           </label>
-          <textarea name="requirements" className="textarea textarea-bordered w-full" placeholder="put each requirement in a new line" required></textarea>
+          <textarea
+            name="requirements"
+            className="textarea textarea-bordered w-full"
+            placeholder="put each requirement in a new line"
+            required
+          ></textarea>
         </div>
         {/* responsibilities */}
-           <div className=" flex flex-col">
+        <div className=" flex flex-col">
           <label className="label">
             <span className="label-text">Job Responsibilities</span>
           </label>
-          <textarea name="responsibilities" className="textarea textarea-bordered w-full" placeholder="write each responsibility in a new line" required></textarea>
+          <textarea
+            name="responsibilities"
+            className="textarea textarea-bordered w-full"
+            placeholder="write each responsibility in a new line"
+            required
+          ></textarea>
         </div>
 
- {/* HR name */}
-          <div className=" flex flex-col">
+        {/* HR name */}
+        <div className=" flex flex-col">
           <label className="label">
             <span className="label-text">HR Name</span>
           </label>
@@ -179,13 +201,13 @@ const navigate = useNavigate()
             required
           />
         </div>
-         {/* HR email */}
-          <div className=" flex flex-col">
+        {/* HR email */}
+        <div className=" flex flex-col">
           <label className="label">
             <span className="label-text">HR Email</span>
           </label>
           <input
-          defaultValue={user?.email}
+            defaultValue={user?.email}
             type="email"
             name="hr_email"
             placeholder="HR Email"
@@ -193,8 +215,8 @@ const navigate = useNavigate()
             required
           />
         </div>
-         {/* application deadline */}
-          <div className=" flex flex-col">
+        {/* application deadline */}
+        <div className=" flex flex-col">
           <label className="label">
             <span className="label-text">Application Deadline</span>
           </label>
@@ -206,8 +228,8 @@ const navigate = useNavigate()
             required
           />
         </div>
-         {/* company logo url*/}
-          <div className=" flex flex-col">
+        {/* company logo url*/}
+        <div className=" flex flex-col">
           <label className="label">
             <span className="label-text">Company Logo URL</span>
           </label>
@@ -219,11 +241,13 @@ const navigate = useNavigate()
             required
           />
         </div>
-        
-        
 
         {/* submit */}
-        <input className="btn btn-neutral btn-outline" type="submit" value="Submit" />
+        <input
+          className="btn btn-neutral btn-outline"
+          type="submit"
+          value="Submit"
+        />
       </form>
     </div>
   );

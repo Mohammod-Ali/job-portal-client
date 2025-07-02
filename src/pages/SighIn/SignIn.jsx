@@ -7,11 +7,10 @@ import SocialLogin from "../shared/SocialLogin";
 import axios from "axios";
 
 const SignIn = () => {
-
-const {signInUser} = useContext(AuthContext)
-const location = useLocation()
-const navigate = useNavigate()
-const from = location.state || '/'
+  const { signInUser } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state || "/";
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -21,19 +20,19 @@ const from = location.state || '/'
     // console.log(email, password);
 
     signInUser(email, password)
-    .then(result => {
-        console.log(result)
-      //   const user = {email: result.user.email}
-      // axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
-      // .then(data => {
-      //   console.log(data.data)
-      // })
+      .then((result) => {
+        console.log(result);
+        //   const user = {email: result.user.email}
+        // axios.post('https://job-portal-server-ten-alpha.vercel.app/jwt', user, {withCredentials: true})
+        // .then(data => {
+        //   console.log(data.data)
+        // })
 
-      navigate(from)
-    })
-    .catch(error => {
-        console.log(error.message)
-    })
+        navigate(from);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
@@ -66,9 +65,13 @@ const from = location.state || '/'
               <button className="btn btn-neutral mt-4">Sign In</button>
               <SocialLogin></SocialLogin>
             </fieldset>
-            <p>You have no account, Please <Link className="text-blue-500" to='/register'>Register</Link></p>
+            <p>
+              You have no account, Please{" "}
+              <Link className="text-blue-500" to="/register">
+                Register
+              </Link>
+            </p>
           </form>
-          
         </div>
       </div>
     </div>
