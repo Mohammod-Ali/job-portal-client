@@ -109,7 +109,7 @@ const AddJob = () => {
               <span className="label-text">Salary Range</span>
             </label>
             <input
-              type="text"
+              type="number"
               name="min"
               placeholder="Min"
               className="input w-full"
@@ -118,7 +118,7 @@ const AddJob = () => {
           </div>
           <div className=" flex flex-col">
             <input
-              type="text"
+              type="number"
               name="max"
               placeholder="Max"
               className="input w-full"
@@ -207,6 +207,7 @@ const AddJob = () => {
             <span className="label-text">HR Email</span>
           </label>
           <input
+          readOnly
             defaultValue={user?.email}
             type="email"
             name="hr_email"
@@ -234,7 +235,7 @@ const AddJob = () => {
             <span className="label-text">Company Logo URL</span>
           </label>
           <input
-            type="text"
+            type="url"
             name="logo"
             placeholder="Company Logo URL"
             className="input w-full"
